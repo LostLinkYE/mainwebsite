@@ -9,7 +9,7 @@ export function Navbar() {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-zinc-200 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-black/60 dark:border-zinc-800">
+    <header className="sticky top-0 z-50 w-full border-b border-zinc-200 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-black dark:border-zinc-800 dark:supports-[backdrop-filter]:bg-black">
       <div className="container flex h-16 items-center justify-between">
         <Link href="#" className="flex items-center gap-2">
           <div className="h-6 w-6 rounded-sm bg-[--color-brand]" />

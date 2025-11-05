@@ -26,13 +26,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground antialiased font-sans min-h-[100dvh] flex flex-col`}
       >
         <ScrollProgress />
         <Navbar />
-        <div className="top-spotlight hidden sm:block" />
+        {/* removed spotlight to keep backgrounds purely black */}
         <main className="flex-1">
           {children}
         </main>

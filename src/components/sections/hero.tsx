@@ -9,8 +9,6 @@ import Link from "next/link";
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-black text-center min-h-[calc(100dvh-64px)] flex items-center py-16 sm:py-24">
-      <div className="hero-grid hidden sm:block" />
-      <div className="hero-radial hidden sm:block" />
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

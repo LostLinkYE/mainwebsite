@@ -30,7 +30,7 @@ export default function RegisterClient() {
       className="relative overflow-hidden bg-black py-0 text-white flex items-center"
       style={{ height: `calc(100dvh - ${navH}px)` }}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_0%,_rgba(37,99,235,0.18),_transparent_70%)]" />
+      <div className="absolute inset-0 hidden sm:block bg-[radial-gradient(60%_60%_at_50%_0%,_rgba(37,99,235,0.18),_transparent_70%)]" />
       <div className="container relative grid min-h-full place-items-center">
         <motion.div layout className="relative w-full max-w-3xl">
           <motion.h1 layout

@@ -23,6 +23,14 @@
   }
 }
 
+/* Force dark theme when .dark is present on <html> */
+.dark {
+  --background: #000000;
+  --foreground: #ededed;
+  --brand: #2563eb;
+  --brand-foreground: #ffffff;
+}
+
 /* Layout utilities */
 .container {
   max-width: 1200px;
