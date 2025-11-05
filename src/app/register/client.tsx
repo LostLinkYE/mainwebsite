@@ -28,16 +28,16 @@ export default function RegisterClient() {
   return (
     <section
       className="relative overflow-hidden bg-black py-0 text-white flex items-center"
-      style={{ height: `calc(100svh - ${navH}px)` }}
+      style={{ height: `calc(100dvh - ${navH}px)` }}
     >
       <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_0%,_rgba(37,99,235,0.18),_transparent_70%)]" />
-      <div className="container relative grid place-items-center">
+      <div className="container relative grid min-h-full place-items-center">
         <motion.div layout className="relative w-full max-w-3xl">
           <motion.h1 layout
             initial={{ opacity: 0, y: 0, scale: 1 }}
             animate={isInstruction ? { y: -24, scale: 0.94, opacity: 1 } : { y: 0, scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 95, damping: 18 }}
-            className="mx-auto text-center text-6xl font-semibold tracking-tight sm:text-8xl md:text-9xl"
+            className="mx-auto text-center text-5xl font-semibold tracking-tight sm:text-7xl md:text-8xl"
           >
             Welcome
           </motion.h1>
@@ -60,9 +60,9 @@ export default function RegisterClient() {
             </p>
             {/* Inline tap animation (same as landing) */}
             <div className="mt-4 grid place-items-center">
-              <div className="relative grid place-items-center">
+              <div className="relative grid place-items-center transform-gpu scale-[0.9] sm:scale-100">
                 {/* phone back */}
-                <div className="relative h-[520px] w-[260px] rounded-[36px] bg-gradient-to-b from-zinc-900 to-black ring-1 ring-zinc-800 shadow-[0_40px_120px_-30px_rgba(0,0,0,0.6)]">
+                <div className="relative h-[420px] w-[210px] sm:h-[520px] sm:w-[260px] rounded-[36px] bg-gradient-to-b from-zinc-900 to-black ring-1 ring-zinc-800 shadow-[0_40px_120px_-30px_rgba(0,0,0,0.6)]">
                   {/* camera island (decorative) */}
                   <div className="absolute left-6 top-6 h-14 w-14 rounded-2xl bg-zinc-800/70 ring-1 ring-zinc-700" />
                   <div className="absolute left-10 top-10 h-6 w-6 rounded-full bg-zinc-900 ring-2 ring-zinc-700" />
