@@ -36,7 +36,7 @@ export default function RegisterClient() {
           <motion.h1 layout
             initial={{ opacity: 0, y: 0, scale: 1 }}
             animate={isInstruction ? { y: -24, scale: 0.94, opacity: 1 } : { y: 0, scale: 1, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 70, damping: 22 }}
+            transition={{ type: "spring", stiffness: 95, damping: 18 }}
             className="mx-auto text-center text-6xl font-semibold tracking-tight sm:text-8xl md:text-9xl"
           >
             Welcome
