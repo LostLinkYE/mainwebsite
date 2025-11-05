@@ -1,5 +1,8 @@
-import { promises as fs } from "fs";
-import path from "path";
+console.log("🔍 SUPABASE_URL:", process.env.SUPABASE_URL);
+console.log("🔍 SERVICE_ROLE:", process.env.SUPABASE_SERVICE_ROLE_KEY ? "Loaded ✅" : "Missing ❌");
+
+import "server-only";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 export type CardRecord = {
   id: string;
@@ -9,61 +12,59 @@ export type CardRecord = {
   createdAt: string;
 };
 
-const DB_PATH = path.join(process.cwd(), "data", "cards.json");
 
-async function ensureFile() {
-  try {
-    await fs.access(DB_PATH);
-  } catch {
-    await fs.mkdir(path.dirname(DB_PATH), { recursive: true });
-    await fs.writeFile(DB_PATH, "{}", "utf8");
+function getSupabase(): SupabaseClient {
+  const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!supabaseUrl || !supabaseServiceKey) {
+    throw new Error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY environment variables.");
   }
-}
-
-export async function readDB(): Promise<Record<string, CardRecord>> {
-  await ensureFile();
-  try {
-    const raw = await fs.readFile(DB_PATH, "utf8");
-    const data = JSON.parse(raw || "{}");
-    if (typeof data !== "object" || Array.isArray(data)) return {} as any;
-    return data as Record<string, CardRecord>;
-  } catch {
-    return {} as any;
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    console.warn("Using NEXT_PUBLIC_SUPABASE_ANON_KEY on server; writes may fail under RLS.");
   }
-}
-
-export async function writeDB(data: Record<string, CardRecord>) {
-  await ensureFile();
-  const json = JSON.stringify(data, null, 2);
-  await fs.writeFile(DB_PATH, json, "utf8");
+  if (!supabase) {
+    supabase = createClient(supabaseUrl, supabaseServiceKey, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+  }
+  return supabase;
 }
 
 export async function getCard(id: string): Promise<CardRecord | null> {
-  const db = await readDB();
-  return db[id] ?? null;
-}
-
-export async function setCard(id: string, payload: Omit<CardRecord, "id" | "createdAt"> & { message?: string }): Promise<CardRecord> {
-  const db = await readDB();
-  const rec: CardRecord = {
-    id,
-    name: payload.name,
-    email: payload.email,
-    message: payload.message,
-    createdAt: new Date().toISOString(),
+  const { data, error } = await getSupabase()
+    .from("cards")
+    .select("id,name,email,message,created_at")
+    .eq("id", id)
+    .maybeSingle();
+  if (error && error.code !== "PGRST116") throw error;
+  if (!data) return null;
+  return {
+    id: data.id as string,
+    name: data.name as string,
+    email: data.email as string,
+    message: (data as any).message ?? undefined,
+    createdAt: (data as any).created_at as string,
   };
-  db[id] = rec;
-  await writeDB(db);
-  return rec;
 }
 
-/*
-How to connect a real DB later:
-- Firebase: Replace readDB/writeDB/getCard/setCard with Firestore calls. Example:
-  import { doc, getDoc, setDoc } from "firebase/firestore";
-  const ref = doc(firestore, "cards", id);
-  const snap = await getDoc(ref);
-  await setDoc(ref, { name, email, message, createdAt });
-- Supabase: Use supabase.from('cards').select('*').eq('id', id).single() and .upsert({ id, ...fields })
-- Prisma + SQLite/Postgres: Define a Card model in schema.prisma and use prisma.card.upsert()
-*/
+export async function setCard(
+  id: string,
+  payload: Omit<CardRecord, "id" | "createdAt"> & { message?: string }
+): Promise<CardRecord> {
+  const { data, error } = await getSupabase()
+    .from("cards")
+    .upsert(
+      { id, name: payload.name, email: payload.email, message: payload.message ?? null },
+      { onConflict: "id" }
+    )
+    .select("id,name,email,message,created_at")
+    .single();
+  if (error) throw error;
+  return {
+    id: data!.id as string,
+    name: data!.name as string,
+    email: data!.email as string,
+    message: (data as any).message ?? undefined,
+    createdAt: (data as any).created_at as string,
+  };
+}

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCard, setCard } from "@/lib/cards-db";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export async function GET(req: NextRequest, context: { params: Promise<{ id: string }> }) {
   const { id: idParam } = await context.params;
