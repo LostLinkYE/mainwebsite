@@ -8,25 +8,25 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-white py-24 text-center dark:bg-black">
-      <div className="hero-grid" />
-      <div className="hero-radial" />
+    <section className="relative overflow-hidden bg-black text-center min-h-[calc(100dvh-64px)] flex items-center py-16 sm:py-24">
+      <div className="hero-grid hidden sm:block" />
+      <div className="hero-radial hidden sm:block" />
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative z-10 mx-auto max-w-3xl"
+          className="relative z-10 mx-auto max-w-2xl sm:max-w-3xl"
         >
           <Badge variant="brand" className="mb-4">NFC PVC Cards</Badge>
-          <h1 className="text-balance text-4xl font-semibold tracking-tight text-black md:text-6xl dark:text-white">
-          Intelligent cards that facilitate the return of your  <span className="highlight-blue">lost items</span>
+          <h1 className="text-balance text-3xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-white">
+            Intelligent cards that facilitate the return of your  <span className="highlight-blue">lost items</span>
           </h1>
-          <p className="mt-6 text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+          <p className="mt-6 text-base sm:text-lg leading-7 sm:leading-8 text-zinc-400">
             Store your contact details on durable smart cards. If you lose an item, finders can tap and instantly reach you.
           </p>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <Button className="btn-shine">Order Cards</Button>
             <Button variant="brandOutline">How it works</Button>
             <Link href="/register" className="inline-flex">
@@ -35,7 +35,7 @@ export function Hero() {
           </div>
 
           {/* 3D card showcase below the CTAs */}
-          <div className="mt-12 grid place-items-center">
+          <div className="mt-10 hidden md:grid place-items-center">
             <NfcCard3D animated={false} tagline="FOUND" className="h-[220px] w-[360px] sm:h-[240px] sm:w-[400px] md:h-[260px] md:w-[440px]" />
           </div>
 
@@ -44,7 +44,7 @@ export function Hero() {
             <Button size="lg" className="rounded-full px-8">
               Buy
             </Button>
-            <p className="text-sm font-medium text-black dark:text-white">
+            <p className="text-sm font-medium text-white/80">
               From £14.99
             </p>
           </div>
