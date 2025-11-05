@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <ScrollProgress />
         <Navbar />
-        <div className="top-spotlight" />
+        <div className="top-spotlight hidden sm:block" />
         <main className="flex-1">
           {children}
         </main>

@@ -5,9 +5,7 @@
   --foreground: #171717;
   --brand: #2563eb;
   --brand-foreground: #ffffff;
-}
-
-@theme inline {
+  /* Tailwind v4 CSS variable mappings (moved from @theme inline) */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-brand: var(--brand);
@@ -18,7 +16,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #000000;
     --foreground: #ededed;
     --brand: #2563eb;
     --brand-foreground: #ffffff;
