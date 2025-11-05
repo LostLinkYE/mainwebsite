@@ -12,6 +12,7 @@ export type CardRecord = {
   createdAt: string;
 };
 
+let supabase: SupabaseClient | undefined;
 
 function getSupabase(): SupabaseClient {
   const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
