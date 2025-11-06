@@ -56,7 +56,7 @@ export default function RegisterClient() {
             }}
           >
             <p className="mx-auto max-w-2xl text-base text-white/85 sm:text-lg">
-              Now tap your Smart Found Card to the back of your phone.
+              Tap, your LostLink card to get started.
             </p>
             {/* Inline tap animation (same as landing) */}
             <div className="mt-4 grid place-items-center">
