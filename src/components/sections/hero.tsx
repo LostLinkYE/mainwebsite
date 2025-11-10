@@ -48,8 +48,9 @@ export function Hero() {
           </div>
         </motion.div>
       </div>
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-center bg-cover opacity-80 [filter:brightness(115%)_contrast(110%)]" style={{ backgroundImage: "url('/hero-bg.gif')" }} />
 
-      <div className="pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(50%_50%_at_50%_0%,black,transparent_70%)]">
+      <div className="pointer-events-none absolute inset-0 z-0 [mask-image:radial-gradient(50%_50%_at_50%_0%,black,transparent_70%)]">
         <motion.div
           aria-hidden
           className="absolute -left-24 -top-24 h-80 w-80 rounded-full bg-[--color-brand] opacity-20 blur-3xl"
